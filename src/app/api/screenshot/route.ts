@@ -35,6 +35,8 @@ export async function GET(request: NextRequest) {
 
   if (viewportString) [width, height] = viewportString.split("x").map(Number);
 
+  const darkMode = request.nextUrl.searchParams.get("darkMode") !== null;
+
   // const secret = request.nextUrl.searchParams.get("secret");
 
   // if (secret !== process.env.SECRET) {
@@ -56,6 +58,12 @@ export async function GET(request: NextRequest) {
     width: width,
     height: height,
   });
+
+  if (darkMode) {
+    await page.emulateMediaFeatures([
+      { name: "prefers-color-scheme", value: "dark" },
+    ]);
+  }
 
   await page.goto(url);
   const screenshot = await page.screenshot();
