@@ -53,8 +53,8 @@ export async function GET(request: NextRequest) {
 
   const page = await browser.newPage();
   await page.setViewport({
-    width: 1400,
-    height: 900,
+    width: width,
+    height: height,
   });
 
   await page.goto(url);
