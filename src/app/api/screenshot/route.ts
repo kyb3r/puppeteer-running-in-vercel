@@ -27,6 +27,14 @@ async function getBrowser() {
 
 export async function GET(request: NextRequest) {
   const url = request.nextUrl.searchParams.get("url");
+
+  let width = 1400;
+  let height = 900;
+
+  const viewportString = request.nextUrl.searchParams.get("viewport");
+
+  if (viewportString) [width, height] = viewportString.split("x").map(Number);
+
   // const secret = request.nextUrl.searchParams.get("secret");
 
   // if (secret !== process.env.SECRET) {
